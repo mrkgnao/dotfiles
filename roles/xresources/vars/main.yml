@@ -28,7 +28,7 @@ urxvt:
 
     allow_bold: "false"
     font: "xft:Iosevka:weight=medium:pixelsize=14"
-    boldFont: "xft:Iosevka:weight=heavy:pixelsize=14"
+    boldFont: "xft:Iosevka:weight=medium:pixelsize=14"
 
     letterSpace: -1
 
@@ -47,7 +47,7 @@ urxvt:
 
   themes:
     molokai:
-      background: "#101010"
+      background: "rgba:0000/0000/0000/cccc"
       foreground: "#d0d0d0"
       colors:
         - "#101010"
@@ -71,8 +71,8 @@ xft:
   template_path: "{{ template_path }}/xft/"
   options:
     hinting: "true"
-    antialias: "false"
-    hintstyle: hintfull
+    antialias: "true"
+    hintstyle: hintslight
     lcdfilter: lcddefault
     dpi: 96
     rgba: rgb

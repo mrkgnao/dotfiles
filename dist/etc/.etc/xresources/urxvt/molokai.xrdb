@@ -2,7 +2,7 @@
 
 ! Molokai theme
 
-URxvt*background: #101010
+URxvt*background: rgba:0000/0000/0000/cccc
 URxvt*foreground: #d0d0d0
 
 ! Colors

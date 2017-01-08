@@ -1,7 +1,6 @@
 - name: Generate dotfiles
   hosts: localhost
   connection: local
-  gather_facts: no
   vars:
     theme: molokai
 
@@ -22,8 +21,6 @@
 - name: Generate scripts
   hosts: localhost
   connection: local
-  gather_facts: no
-
   roles:
     - scripts
 

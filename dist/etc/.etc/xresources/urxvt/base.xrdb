@@ -11,7 +11,7 @@ URxvt.font: xft:Iosevka:weight=medium:pixelsize=14
 URxvt.depth: 32
 URxvt.scrollBar: false
 URxvt.saveLines: 50
-URxvt.boldFont: xft:Iosevka:weight=heavy:pixelsize=14
+URxvt.boldFont: xft:Iosevka:weight=medium:pixelsize=14
 URxvt.internalBorder: 3
 URxvt.allow_bold: false
 URxvt.letterSpace: -1

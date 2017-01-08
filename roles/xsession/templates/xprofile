@@ -1,11 +1,19 @@
-xmodmap ~/.xmodmap
+dunst &
 
+xmodmap ~/.xmodmap
 pkill xcape
 xcape -e "Control_L=Escape;Hyper_R=Return;Super_R=Tab" -t 500
 
+notify-send "set up keyboard" -t 200
+
 urxvtd --quiet --opendisplay --fork
-sh ~/.fehbg &
+mpd
 
-sleep 5
-
+sh ~/.fehbg
 sh ~/.etc/load-xresources
+compton &
+
+notify-send "prettification" -t 200
+
+sh ~/.config/bspwm/bspwmrc
+
