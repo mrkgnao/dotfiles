@@ -1,0 +1,72 @@
+zplug:
+  simple_plugins:
+    - desc: Eye candy
+      plugins:
+
+        - desc: chrissicool
+          ghuser: chrissicool
+          repo: zsh-256color
+
+        - desc: Syntax highlighting
+          ghuser: zsh-users
+          repo: zsh-syntax-highlighting
+          comment: Must be loaded before history_search!
+          priority: 99
+
+        - desc: Search in history
+          ghuser: zsh-users
+          repo: zsh-history-substring-search
+          priority: 98
+
+        - ghuser: unixorn
+          repo: warhol.plugin.zsh
+
+        - desc: frmendes/geometry
+          ghuser: frmendes
+          repo: geometry
+
+    - desc: Completions
+      plugins:
+
+        - desc: NixOS completions
+          ghuser: spwhitt
+          repo: nix-zsh-completions
+
+        - desc: Extra completions for zsh
+          ghuser: zsh-users
+          repo: zsh-completions
+
+        - desc: zaw
+          ghuser: zsh-users
+          repo: zaw
+
+    - desc: Utilities
+      plugins:
+
+        - desc: Notify when commands fail or terminate after a long time
+          ghuser: marzocchi
+          repo: zsh-notify
+
+        - desc: hcgraf/zsh-sudo
+          ghuser: hcgraf
+          repo: zsh-sudo
+
+        - desc: sharat87/zsh-vim-mode
+          ghuser: sharat87
+          repo: zsh-vim-mode
+
+        - desc: joepvd/zsh-hints
+          ghuser: joepvd
+          repo: zsh-hints
+
+        - desc: psprint/ztrace
+          ghuser: psprint
+          repo: ztrace
+
+        - desc: zsh-users/zsh-autosuggestions
+          ghuser: zsh-users
+          repo: zsh-autosuggestions
+
+
+# https://github.com/knu/zsh-manydots-magic
+# https://github.com/psprint/zsh-navigation-tools

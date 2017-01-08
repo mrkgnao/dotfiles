@@ -1,0 +1,34 @@
+export ZPLUG_HOME=$HOME/repos/zplug
+
+source $ZPLUG_HOME/init.zsh
+
+# Begin groups
+
+{% for group in zplug.simple_plugins %}
+{% set group_name = group.desc + " " %}
+# {{ group_name.ljust(50,'-') }}
+
+{% for plugin in group.plugins %}
+{% if 'desc' in plugin %}
+# {{ plugin.desc }}
+{% endif %}
+{% if 'comment' in plugin %}
+# {{ plugin.comment }}
+{% endif %}
+zplug "{{ plugin.ghuser }}/{{ plugin.repo }}"
+
+{% endfor %}
+{% endfor %}
+# End groups
+
+# Make zplug manage itself!
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# End zplug config
+
+zstyle ':notify:*' command-complete-timeout 2
+
+zplug load
+
+export PATH=$PATH:~/bin:~/bin/scripts

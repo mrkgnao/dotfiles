@@ -11,6 +11,7 @@
       file: path={{ config_dir }} state=directory
 
   roles:
+    - zsh
     - xresources
     - xdg
     - xsession
@@ -34,7 +35,7 @@
 
   post_tasks:
     - name: Symlink files into place
-      shell: "./dotsetup -Sn"
+      shell: "./dotsetup -S"
       args:
         chdir: "{{ dist_dir }}"
 

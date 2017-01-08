@@ -1,0 +1,9 @@
+- name: Include vars
+  include_vars:
+    dir: 'vars'
+s
+- name: Create zsh dir
+  file: dest="{{ dist_dir }}/zsh/" state=directory
+
+- name: Create .zshrc
+  template: src=zshrc dest="{{ dist_dir }}/zsh/.zshrc"
