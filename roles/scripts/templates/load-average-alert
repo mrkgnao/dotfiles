@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+PATH=/home/mrkgnao/scripts:/home/mrkgnao/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/mrkgnao/.fzf/bin
+
+LOAD_AVG_SUCCESS_THRESHOLD=2
+LOAD_AVG_INFO_THRESHOLD=4
+LOAD_AVG_WARNING_THRESHOLD=6
+
+LOAD_AVG_URGENT_THRESHOLD=$LOAD_AVG_INFO_THRESHOLD
+
+# Get everything from /proc
+
+FORMATTED_LOAD_AVERAGES=$(cat /proc/loadavg \
+                              | awk '{printf "<i>1 min</i>: <b>%s</b>, <i>5 min</i>: %s, <i>15 min</i>: %s", $1, $2, $3 }')
+
+LOAD_AVG_ONE_MIN="$(cat /proc/loadavg | awk '{ print $1 }')"
+
+if (( $LOAD_AVG_ONE_MIN<$LOAD_AVG_SUCCESS_THRESHOLD )); then
+    LAYOUT=success
+elif (( $LOAD_AVG_ONE_MIN<$LOAD_AVG_INFO_THRESHOLD )); then
+    LAYOUT=info
+elif (( $LOAD_AVG_ONE_MIN<$LOAD_AVG_WARNING_THRESHOLD )); then
+    LAYOUT=warning
+else
+    LAYOUT=critical
+fi
+
+if (( $LOAD_AVG_ONE_MIN<$LOAD_AVG_URGENT_THRESHOLD )); then
+    URGENT=false
+else
+    URGENT=false
+fi
+
+case "$1" in
+    (s|show)
+        twmnc --layout $LAYOUT --title "load averages" --content $FORMATTED_LOAD_AVERAGES --duration 3000
+        exit 0
+        ;;
+esac
+
+if [ $URGENT = true ]; then
+    twmnc --layout $LAYOUT --title "load averages" --content $FORMATTED_LOAD_AVERAGES --duration 3000
+fi

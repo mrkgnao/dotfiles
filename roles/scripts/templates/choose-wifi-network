@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+# choose-wifi-network
+# Uses Arch netctl-auto scripts and rofi to show a convenient wifi profile switcher.
+
+matching_count () {
+    netctl-auto list | grep -cE $@
+}
+
+# Normal profile entries do not start with a ! or a *
+normal_count=$(matching_count '^[^(!|\*)]')
+# Disabled profile entries start with a !
+disabled_count=$(matching_count '^!')
+# Active profile entries (there's at most one) start with a *
+active_count=$(matching_count '^\*')
+
+# rofi can be a given an `-a rows` argument, where `rows` is in the `cut` field format
+# These rows are highlighted
+if [[ $active_count > 0 ]]; then
+    active_switch=(-a $(( $normal_count )))
+fi
+
+# Ditto for "urgent", which is what I'm using to denote disabled networks
+if [ $disabled_count ]; then
+    disabled_switch=(-u $(( $normal_count + $active_count ))-$(( $normal_count + $active_count + $disabled_count - 1 )))
+fi
+
+processed_input=$(netctl-auto list |
+                      # Prepend a sort key to the beginning of every line, and also add a status specifier to the end.
+                      # 8: active network
+                      # 9: disabled networks
+                      # 1: others
+                      sed -e '/\*/ s/.*/8& (active)/' \
+                          -e '/\!/ s/.*/9& (disabled)/' \
+                          -e 't' -e 's/^/1/' |
+                      # Sort using the key.
+                      sort -n |
+                      # Remove the key.
+                      sed -r 's/[0-9]+//' |
+                      # Remove the default netctl-auto status specifier.
+                      sed -r 's/(\!|\*)*\s*//')
+
+
+sudo netctl-auto switch-to \
+     $(echo $processed_input |
+           # Call rofi with the processed list of networks.
+           rofi -i \
+                -dmenu -columns 1 \
+                -width 500 \
+                ${active_switch[@]} ${disabled_switch[@]} \
+                -mesg "Choose wifi network profile:" \
+                -p "netctl-auto switch-to " \ |
+           # We can't just pipe the network name, status specifier and all, back in.
+           sed -r 's/ \(\w+\)$//')

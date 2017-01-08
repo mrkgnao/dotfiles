@@ -1,0 +1,78 @@
+template_path: "{{ role_path }}/templates/"
+
+xresources:
+  includes:
+    xft:
+      - defaults.xrdb
+    urxvt:
+      - base.xrdb
+      - molokai.xrdb
+    rofi:
+      - base.xrdb
+      - molokai.xrdb
+
+rofi:
+  template_path: "{{ template_path }}/rofi/"
+
+urxvt:
+  template_path: "{{ template_path }}/urxvt/"
+  options:
+    depth: 32
+    geometry: 90x30
+    fading: 0
+
+    loginShell: "true"
+    saveLines: 50
+    internalBorder: 3
+    lineSpace: 0
+
+    allow_bold: "false"
+    font: "xft:Iosevka:weight=medium:pixelsize=14"
+    boldFont: "xft:Iosevka:weight=heavy:pixelsize=14"
+
+    letterSpace: -1
+
+    scrollStyle: rxvt
+    scrollBar: "false"
+
+    perl-ext: default,matcher
+    matcher.button: 1
+    urlLauncher: firefox
+
+    cursorBlink: "true"
+    cursorColor: "#657b83"
+    cursorUnderline: "false"
+
+    pointerBlank: "true"
+
+  themes:
+    molokai:
+      background: "#101010"
+      foreground: "#d0d0d0"
+      colors:
+        - "#101010"
+        - "#960050"
+        - "#66aa11"
+        - "#c47f2c"
+        - "#30309b"
+        - "#7e40a5"
+        - "#3579a8"
+        - "#9999aa"
+        - "#303030"
+        - "#ff0090"
+        - "#80ff00"
+        - "#ffba68"
+        - "#5f5fee"
+        - "#bb88dd"
+        - "#4eb4fa"
+        - "#d0d0d0"
+
+xft:
+  template_path: "{{ template_path }}/xft/"
+  options:
+    hinting: "true"
+    antialias: "false"
+    hintstyle: hintfull
+    lcdfilter: lcddefault
+    dpi: 96
+    rgba: rgb

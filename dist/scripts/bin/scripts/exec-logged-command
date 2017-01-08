@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+# Execute a command, sending output silently to a logfile.
+
+LOGDIR=~/.logs
+LOGFILE=$LOGDIR/$2
+
+function log() {
+    echo $1 >> $LOGFILE
+}
+
+# Create necessary files
+if [[ !(-a $LOGFILE) ]]; then
+    touch $LOGFILE
+fi
+
+log "\n$(date -R)"
+log "Executing $1:\n"
+
+eval $1 >> $LOGFILE 2>&1
+
+log "\n$(date -R)"
+log "End of log.\n"
+log "--------------------------------------------------------------------------------"

@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+SXHKD_FIFO=/tmp/sxhkd.fifo
+
+cat $SXHKD_FIFO | while read -r line; do
+    case $line in
+        ("Hhyper + Tab")
+            twmnc --duration 5000 --content "status popup prefix activated" --pos bottom_center
+            ;;
+        (C*)
+            twmnc --remote hide
+            ;;
+    esac
+done

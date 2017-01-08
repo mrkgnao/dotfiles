@@ -1,0 +1,53 @@
+- name: Create etc/xresources dir
+  file: path="{{ etc_dir }}/xresources" state=directory
+
+- block:
+  - name: Create etc/xresources/urxvt dir
+    file: path="{{ etc_dir }}/xresources/urxvt" state=directory
+
+  - name: Copy urxvt resources
+    template: >
+      src={{ item }}
+      dest={{ etc_dir }}/xresources/urxvt/{{ item | basename }}
+    with_fileglob:
+      - "{{ urxvt.template_path }}/*"
+
+- block:
+  - name: Create etc/xresources/rofi dir
+    file: path="{{ etc_dir }}/xresources/rofi" state=directory
+
+  - name: Copy rofi resources
+    template: >
+      src={{ item }}
+      dest={{ etc_dir }}/xresources/rofi/{{ item | basename }}
+    with_fileglob:
+      - "{{ rofi.template_path }}/*"
+
+- block:
+  - name: Create etc/xresources/xft dir
+    file: path="{{ etc_dir }}/xresources/xft" state=directory
+
+  - name: Copy xft resources
+    template: >
+      src={{ item }}
+      dest={{ etc_dir }}/xresources/xft/{{ item | basename }}
+    with_fileglob:
+      - "{{ xft.template_path }}/*"
+
+  #   register: _urxvt_resource
+
+  # - name: Collect resource paths
+  #   set_fact: >
+  #     name={{ item | replace(template_path,'') | regex_replace('(\.|\/)','_') }}
+  #     path={{ item }}
+  #     dest={{ etc_subdir }}/xresources/{{ item | replace(template_path,'') | regex_replace('(\.|\/)','_') }}
+  #   with_fileglob:
+  #     - "{{ urxvt.template_path }}/*"
+  #   register: u_re
+
+  # - name: Process resource paths
+  #   set_fact:
+  #     urxvt_templates: "{{ u_re.results | map(attribute='ansible_facts') | cleanup_dicts }}"
+
+- name: Generate resource loader
+  template: src=load-xresources dest="{{ etc_dir }}/load-xresources" mode=u+x

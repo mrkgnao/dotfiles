@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+POWERSUPPLY="/sys/class/power_supply/AC/online" # could be different on your system!
+
+CRITICAL_THRESHOLD=5 # how low is too low?
+WARNING_THRESHOLD=20
+FULL_THRESHOLD=99
+
+NOT_CHARGING="0"
+CHARGING="1"
+
+export DISPLAY=:0
+
+BATTERY_LEVEL=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+STATUS=$(cat $POWERSUPPLY)
+
+# This has a space at the beginning :D
+REMAINING=$(acpi -b | cut -d',' -f3)
+
+if [ $BATTERY_LEVEL -le $CRITICAL_THRESHOLD -a $STATUS = $NOT_CHARGING ]; then
+    eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME xinit)/environ)";
+    /usr/local/bin/twmnc --layout critical --title "power" --content "battery level ${BATTERY_LEVEL}%,${REMAINING}"
+elif  [ $BATTERY_LEVEL -le $WARNING_THRESHOLD -a $STATUS = $NOT_CHARGING ]; then
+    eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME xinit)/environ)";
+    /usr/local/bin/twmnc --layout warning --title "power" --content "battery level ${BATTERY_LEVEL}%,${REMAINING}"
+elif  [ $BATTERY_LEVEL -ge $FULL_THRESHOLD -a $STATUS = $CHARGING ]; then
+    eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME xinit)/environ)";
+    /usr/local/bin/twmnc --layout info --title "power" --content "battery full (${BATTERY_LEVEL}%)"
+fi
+
+exit 0

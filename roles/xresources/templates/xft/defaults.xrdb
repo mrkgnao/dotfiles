@@ -1,0 +1,3 @@
+{% for k, v in xft.options.items() %}
+Xft.{{ k }}: {{ v }}
+{% endfor %}

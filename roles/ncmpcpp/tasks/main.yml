@@ -1,0 +1,7 @@
+- name: Create config dir
+  file: path={{ ncmpcpp_dir }} state=directory
+
+- name: Copy files
+  copy: src="{{ item }}" dest="{{ ncmpcpp_dir }}/{{ item | basename }}"
+  with_fileglob:
+    - "{{ role_path }}/templates/*"

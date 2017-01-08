@@ -1,0 +1,1 @@
+ncmpcpp_dir: "{{ config_rootdir }}/.ncmpcpp"

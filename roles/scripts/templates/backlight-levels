@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# wait-for-terminate "$(basename $0)"
+
+case "$1" in
+    (i|inc)
+        xbacklight -inc "$2%" ;;
+    (d|dec)
+        xbacklight -dec "$2%" ;;
+    (s|show|get) ;;
+    (*)
+        echo "Usage: $0 {inc|dec} <amount>"
+        exit 1
+        ;;
+esac
+
+# twmnc --remote hide
+
+notify-send -t 200 "backlight" $(printf "%.*f\n" 0 $(xbacklight))%

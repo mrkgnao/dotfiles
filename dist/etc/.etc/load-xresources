@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+echo "Loading X resources."
+
+echo -e "\nmodule: urxvt"
+echo "    file: base.xrdb"
+xrdb -merge $HOME/.etc/xresources/urxvt/base.xrdb
+echo "    file: molokai.xrdb"
+xrdb -merge $HOME/.etc/xresources/urxvt/molokai.xrdb
+
+echo -e "\nmodule: rofi"
+echo "    file: base.xrdb"
+xrdb -merge $HOME/.etc/xresources/rofi/base.xrdb
+echo "    file: molokai.xrdb"
+xrdb -merge $HOME/.etc/xresources/rofi/molokai.xrdb
+
+echo -e "\nmodule: xft"
+echo "    file: defaults.xrdb"
+xrdb -merge $HOME/.etc/xresources/xft/defaults.xrdb

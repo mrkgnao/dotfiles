@@ -1,0 +1,18 @@
+! ------------------------------------------------------------------------------
+! base settings for rofi
+! handcrafted *cough* by @mrkgnao
+! ------------------------------------------------------------------------------
+
+rofi.font: Iosevka 12
+rofi.color-enabled: true
+rofi.opacity: 80
+
+rofi.levenshtein-sort: true
+
+rofi.separator-style: solid
+rofi.hide-scrollbar: true
+rofi.columns: 3
+
+rofi.window-format: {w}
+rofi.width: 900
+rofi.sidebar-mode: true

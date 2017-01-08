@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+properly-killall compton
+
+compton -b \
+        -f \
+        -D 5 \
+        --backend glx \
+        --vsync opengl-swc

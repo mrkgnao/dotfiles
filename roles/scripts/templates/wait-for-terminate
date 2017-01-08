@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+# Wait until the processes have been shut down
+
+echo "wait-for-terminate $1:"
+
+while (( $(ps aux | grep $1 | wc -l) > 3 )); do
+    echo $(ps aux | grep $1 | wc -l)
+    echo "    Waiting for $1 to terminate..."
+    sleep 0.1;
+done

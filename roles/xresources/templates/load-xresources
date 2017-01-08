@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+echo "Loading X resources."
+{% for module, files in xresources.includes.items() %}
+
+echo -e "\nmodule: {{ module }}"
+{% for file in files %}
+{% set path = module + "/" + file %}
+echo "    file: {{ file }}"
+xrdb -merge $HOME/{{ etc_subdir }}/xresources/{{ path }}
+{% endfor %}
+{% endfor %}

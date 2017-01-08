@@ -1,0 +1,11 @@
+! source: https://github.com/spazzpp2/dotfiles/blob/29819a5ac5e451bfa39bc324378aa508ef75cae8/Molokai.xrdb
+
+! Molokai theme
+
+URxvt*background: {{ urxvt.themes.molokai.background }}
+URxvt*foreground: {{ urxvt.themes.molokai.foreground }}
+
+! Colors
+{% for color in urxvt.themes.molokai.colors %}
+URxvt*color{{ loop.index0 }}: {{ color }}
+{% endfor %}

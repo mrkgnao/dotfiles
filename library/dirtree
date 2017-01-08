@@ -1,0 +1,81 @@
+#!/usr/bin/python
+
+import os.path
+import os
+import json
+from ansible.module_utils.basic import *
+
+
+def main():
+    spec = {
+        "tree": {},
+        "prefix": {"type":"str"}
+    }
+    module = AnsibleModule(argument_spec=spec)
+
+    tree = restructure_dict(module.params.get('tree'))
+    prefix = module.params.get('prefix')
+
+    p = expand_tree(tree, prefix)
+
+    changed = create_dirs(p)
+
+    # Get all the requested package names.
+    module.exit_json(changed=changed, meta=p)
+
+
+def create_dir(dir):
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+        return True
+    return False
+
+
+def create_dirs(dirs):
+    changed = False
+    for i in dirs:
+        changed = create_dir(i) or changed
+    return changed
+
+
+def restructure_dict(d):
+    def f(xs):
+        if xs is None:
+            return None
+        else:
+            return {x: None for x in xs}
+
+    if type(d) == dict:
+        return {k: restructure_dict(v) for (k, v) in d.items()}
+    else:
+        return f(d)
+
+
+def expand_tree(tree, prefix=None):
+    if prefix is None:
+        prefix = ""
+    to_explore = list([k] for k in tree.keys())
+    paths = []
+
+    while to_explore:
+        for k in to_explore:
+            i = multi_index(tree, k)
+            if i is None:
+                paths.append("/".join([prefix] + k))
+            else:
+                for k_ in i:
+                    to_explore.append(k + [k_])
+            to_explore.remove(k)
+
+    return paths
+
+
+def multi_index(d, l):
+    x = d
+    for i in l:
+        x = x[i]
+    return x
+
+
+if __name__ == '__main__':
+    main()

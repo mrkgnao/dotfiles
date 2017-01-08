@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+PATH=/home/mrkgnao/scripts:/home/mrkgnao/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/mrkgnao/.fzf/bin
+
+twmnc --layout default --title "stack" --content "starting index update"
+
+exec-logged-command "stack update" stack-update
+
+twmnc --layout info --title "stack" --content "index updated in $SECONDS s"

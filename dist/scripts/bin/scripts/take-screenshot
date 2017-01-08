@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+echo $title
+
+while [[ -a "/tmp/scrot-last" ]]; do
+    sleep 0.1
+    echo "waiting for previous scrot to finish"
+done
+
+scrot 'desktop-%Y%m%d%H%M%S.png' -q 100 -cd $1 -e 'echo $f > /tmp/scrot-last && mv $f /tmp/$f'
+
+scrot_out=$(cat /tmp/scrot-last)
+
+title=$(xtitle | grep --only-matching -P "\w+" | head -n 1)
+scrot_out_path="/home/mrkgnao/img/scrots/$title-$scrot_out"
+
+mv /tmp/$scrot_out $scrot_out_path
+
+twmnc --title screenshot --content "saved to $scrot_out_path"
+rm -f /tmp/scrot-last

@@ -1,0 +1,7 @@
+- name: Create config dir
+  file: path="{{ config_dir }}/mpd" state=directory
+
+- name: Copy files
+  template: src={{ item }} dest="{{ config_dir }}/mpd/{{ item | basename }}"
+  with_fileglob:
+    - "{{ role_path }}/templates/*"

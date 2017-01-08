@@ -1,0 +1,60 @@
+#!/usr/bin/env zsh
+
+DELAY=0.8
+
+bspc desktop -f emacs
+emacs &
+
+# set up terminal applications
+
+bspc rule -a URxvt -o desktop=irc
+urxvtc --hold -name weechat -e weechat
+
+sleep $DELAY
+
+bspc rule -a URxvt -o desktop=admin
+urxvtc --hold -name htop -e htop
+
+sleep $DELAY
+
+bspc rule -a URxvt -o desktop=music
+urxvtc --hold -name ncmpcpp -e ncmpcpp
+
+sleep $DELAY
+
+twmnc --layout short-default --title "bspwm" --content "terminal apps started"
+
+# set up task terminals for pacaur and dev
+
+bspc rule -a URxvt -o desktop=pac
+urxvtc
+
+sleep $DELAY
+
+bspc rule -a URxvt -o desktop=term
+urxvtc
+
+sleep $DELAY
+
+twmnc --layout short-default --title "bspwm" --content "task terminals up"
+
+# set up scratch terminats on three scratch windows
+
+bspc rule -a URxvt -o desktop=e
+urxvtc
+
+sleep $DELAY
+
+bspc rule -a URxvt -o desktop=r
+urxvtc
+
+sleep $DELAY
+
+bspc rule -a URxvt -o desktop=u
+urxvtc
+
+sleep $DELAY
+
+twmnc --layout info --title "bspwm" --content "workspace set up"
+
+firefox

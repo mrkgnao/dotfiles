@@ -1,0 +1,13 @@
+! ------------------------------------------------------------------------------
+! molokai theme for rofi
+! handcrafted *cough* by @mrkgnao
+! ------------------------------------------------------------------------------
+
+! bg, border, separator
+rofi.color-window: #101010, #101010, #003642
+
+! I prefer the no-striping alt-bg = bg look.
+!                  bg,      fg,      alt-bg,  hi-bg,   hi-fg
+rofi.color-normal: #101010, #d0d0d0, #101010, #151515, #ff0090
+rofi.color-active: #101010, #80ff00, #101010, #151515, #80ff00
+rofi.color-urgent: #101010, #3579a8, #101010, #151515, #ff0090

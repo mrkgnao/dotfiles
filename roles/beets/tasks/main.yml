@@ -1,0 +1,7 @@
+- name: Create config dir
+  file: path="{{ config_dir }}/beets" state=directory
+
+- name: Copy files
+  template: src={{ item }} dest="{{ config_dir }}/beets/{{ item | basename }}"
+  with_fileglob:
+    - "{{ role_path }}/templates/*"

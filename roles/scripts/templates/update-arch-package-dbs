@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+PATH=/home/mrkgnao/scripts:/home/mrkgnao/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/mrkgnao/.fzf/bin
+
+twmnc --layout default --title "pacaur" --content "starting db update"
+
+exec-logged-command "pacaur -Sy" pacaur-db-update
+
+NUM_UPDATES=$(checkupdates | wc -l)
+
+twmnc --layout info --title "pacaur" --content "package dbs updated in $SECONDS s"
+
+if [ $NUM_UPDATES -gt 0 ]; then
+    twmnc --layout default --title "pacaur" --content "$NUM_UPDATES updates available"
+fi

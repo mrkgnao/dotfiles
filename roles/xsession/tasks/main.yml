@@ -1,0 +1,8 @@
+- name: Create etc/xsession dir
+  file: path="{{ etc_dir }}/xsession" state=directory
+
+- name: Create .xprofile
+  template: src=xprofile dest="~/.xprofile" mode=u+x
+
+# - name: Create .xprofile
+#   template: src=xprofile dest="{{ etc_dir }}/xsession/xprofile" mode=u+x

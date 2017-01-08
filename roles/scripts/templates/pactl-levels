@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+PA_BLUETOOTH_SINK="bluez_sink.FC_58_FA_B1_09_98"
+PA_ANALOG_STEREO_SINK="alsa_output.pci-0000_00_1b.0.analog-stereo"
+PA_SINKS=($PA_BLUETOOTH_SINK $PA_ANALOG_STEREO_SINK)
+
+for sink in $PA_SINKS; do
+    case "$1" in
+        (t|toggle|toggle-mute)
+            pactl set-sink-mute   $sink  toggle ;;
+        (i|inc)
+            pactl set-sink-volume $sink  "+$2%" ;;
+        (d|dec)
+            pactl set-sink-volume $sink  "-$2%" ;;
+        (c|chg|change)
+            pactl set-sink-volume $sink   "$2%" ;;
+        (s|show)
+        ;;
+        (*)
+            echo "Usage: $0 {toggle|inc|dec}"
+            exit 1
+            ;;
+    esac
+done
+
+SINK=5
+
+#http://unix.stackexchange.com/questions/132230/read-out-pulseaudio-volume-from-commandline-i-want-pactl-get-sink-volume
+
+notify-send -t 200 "volume" $(pactl list sinks |
+                                  grep '^[[:space:]]Volume:' |
+                                  head -n $(( $SINK + 1 )) |
+                                  tail -n 1 |
+                                  sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')%

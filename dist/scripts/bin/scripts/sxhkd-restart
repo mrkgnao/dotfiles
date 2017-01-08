@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+SXHKD_FIFO=/tmp/sxhkd.fifo
+
+properly-killall sxhkd
+
+if [[ -a $SXHKD_FIFO ]]; then
+    rm -f $SXHKD_FIFO;
+fi
+
+mkfifo /tmp/sxhkd.fifo
+sxhkd -s /tmp/sxhkd.fifo &

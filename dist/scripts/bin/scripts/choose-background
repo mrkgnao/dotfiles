@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+cd $1
+feh --bg-fill $(ls | rofi -dmenu -p "feh --bg-fill ")

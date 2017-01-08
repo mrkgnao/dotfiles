@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+SSID_COMMAND="iwconfig wlp1s0 | grep --only-matching \"ESSID.*\""
+
+PREV_SSID=$(echo $(eval $SSID_COMMAND))
+CURR_SSID=$(echo $(eval $SSID_COMMAND))
+
+while true; do
+    CURR_SSID=$(echo $(eval $SSID_COMMAND))
+    if [ $CURR_SSID != $PREV_SSID ]; then
+        case "$CURR_SSID" in
+            (*off/any*)
+                twmnc --layout warning --title "wlan" --content "disconnected"
+                ;;
+            (*)
+                SSID=$(echo $CURR_SSID | grep --only-matching "\".*\"")
+                twmnc --title "wlan" --content "connected to ${SSID}"
+                ;;
+        esac
+        PREV_SSID=$CURR_SSID
+    fi
+done

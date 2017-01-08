@@ -1,0 +1,2 @@
+- name: Customize XDG user directories
+  template: src="{{ role_path }}/templates/user-dirs.dirs" dest="{{ config_dir }}/user_dirs.dirs"

@@ -1,0 +1,2 @@
+- name: Create stow script
+  template: src="{{ role_path }}/templates/dotsetup" dest="{{ dist_dir }}/dotsetup" mode=u+x

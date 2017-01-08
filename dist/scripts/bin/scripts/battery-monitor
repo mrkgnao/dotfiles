@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+POWERSUPPLY="/sys/class/power_supply/BAT0/status"
+
+# PREV_BATTERY_LEVEL=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+# CURR_BATTERY_LEVEL=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+
+PREV_STATUS=$(cat $POWERSUPPLY)
+CURR_STATUS=$(cat $POWERSUPPLY)
+
+while true; do
+    CURR_STATUS=$(cat $POWERSUPPLY)
+    if [ $CURR_STATUS != $PREV_STATUS ]; then
+        case "$CURR_STATUS" in
+            (Charging)
+                notify-send -t 200 "connected to AC"
+                ;;
+            (Discharging)
+                notify-send -t 200 "disconnected from AC"
+                ;;
+        esac
+        PREV_STATUS=$CURR_STATUS
+    fi
+    sleep 0.5
+done
+

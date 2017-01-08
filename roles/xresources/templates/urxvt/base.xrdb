@@ -1,0 +1,3 @@
+{% for k, v in urxvt.options.items() %}
+URxvt.{{ k }}: {{ v }}
+{% endfor %}

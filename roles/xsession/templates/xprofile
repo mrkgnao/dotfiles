@@ -1,0 +1,11 @@
+xmodmap ~/.xmodmap
+
+pkill xcape
+xcape -e "Control_L=Escape;Hyper_R=Return;Super_R=Tab" -t 500
+
+urxvtd --quiet --opendisplay --fork
+sh ~/.fehbg &
+
+sleep 5
+
+sh ~/.etc/load-xresources

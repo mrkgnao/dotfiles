@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+# Terminate already running bar instances and wait until the processes have been shut down
+
+killall -v $1
+while pgrep -x $1 >/dev/null; do
+    sleep 1;
+    echo "Waiting for $1 to terminate..."
+done

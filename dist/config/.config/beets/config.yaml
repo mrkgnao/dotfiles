@@ -1,0 +1,24 @@
+directory: ~/music
+library: ~/music/beets.db
+
+# Global config options
+asciify_paths: yes
+original_date: yes
+
+paths:
+  default: $genre/$albumartist/$original_year - $album%aunique{}/$track $title
+
+ui:
+  color: yes
+
+import:
+  move: no
+
+lastgenre:
+  fallback: 'Humid nightblue music'
+
+plugins: fromfilename mpdstats lastgenre
+
+mpd:
+  host: localhost
+  port: 6600

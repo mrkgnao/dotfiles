@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+properly-killall battery-monitor
+battery-monitor &
+
+properly-killall ssid-alert
+ssid-alert &
+
+properly-killall mpd_twmn_notifier
+mpd_twmn_notifier &

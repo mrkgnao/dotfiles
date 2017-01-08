@@ -1,0 +1,1 @@
+stow $@ --no-folding -v scripts config etc -t ~

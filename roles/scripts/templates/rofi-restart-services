@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+choice=$(echo -e "polybar\nsxhkd\ntwmnd\nbattery-monitor\nssid-alert\nmpd_twmn_notifier\nmpd\nbluetooth.service" | rofi -dmenu -p "restart ")
+
+echo $choice
+
+if [ -z $choice ]; then
+    exit 1
+fi
+
+case "$choice" in
+    (polybar)
+        polybar-restart ;;
+    (sxhkd)
+        sxhkd-restart ;;
+    (mpd)
+        pkill mpd
+        mpd ;;
+    (twmnd)
+        pkill twmnd
+        twmnd & ;;
+    (bluetooth*)
+        sudo systemctl restart bluetooth.service
+    (*)
+        properly-killall $choice
+        $choice & ;;
+esac
+
+sleep 1
+twmnc --content "restarted $choice"

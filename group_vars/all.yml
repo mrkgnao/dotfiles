@@ -1,0 +1,19 @@
+dist_dir: "./dist"
+
+config_pkg: "config"
+config_subdir: ".config"
+config_rootdir: "{{ dist_dir }}/{{ config_pkg }}"
+config_dir: "{{ config_rootdir }}/{{ config_subdir }}"
+
+scripts_pkg: "scripts"
+scripts_subdir: "bin/scripts"
+scripts_rootdir: "{{ dist_dir }}/{{ scripts_pkg }}"
+scripts_dir: "{{ scripts_rootdir }}/{{ scripts_subdir }}"
+
+etc_pkg: "etc"
+etc_subdir: ".etc"
+etc_rootdir: "{{ dist_dir }}/{{ etc_pkg }}"
+etc_dir: "{{ etc_rootdir }}/{{ etc_subdir }}"
+
+music:
+  playlists_dir: "~/music/playlists"
